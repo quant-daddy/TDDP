@@ -2,8 +2,9 @@ from selenium import webdriver
 import time
 from selenium.webdriver.common.keys import Keys
 import unittest
+from django.test import LiveServerTestCase
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
 	def setUp(self):
 		print ("setUp is called");
@@ -20,8 +21,8 @@ class NewVisitorTest(unittest.TestCase):
 		self.assertIn(row_text, [row.text for row in rows])
 
 	def test_can_start_a_list_and_retrieve_it_later(self):
-		# Julia goes to check out the homepage of our app
-		self.browser.get('http://localhost:8000')
+		# Julia heard abut a cool new To-Do App and goes online to check out the homepage of our app
+		self.browser.get(self.live_server_url)
 
 		# She notices the page title and header mention to-do lists
 		self.assertIn('To-Do', self.browser.title)
@@ -55,6 +56,3 @@ class NewVisitorTest(unittest.TestCase):
 		
 
 		self.fail("Finish the test")
-
-if __name__ == '__main__':
-	unittest.main(warnings='ignore')
