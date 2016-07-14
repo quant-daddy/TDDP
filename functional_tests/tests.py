@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 # import unittest
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
-DRIVER_ADD = "/home/suraj/Downloads/chromedriver"
+DRIVER_ADD = "/home/elspeth/sites/chromedriver"
 class NewVisitorTest(StaticLiveServerTestCase):
 
 	@classmethod
