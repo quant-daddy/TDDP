@@ -2,9 +2,9 @@ from selenium import webdriver
 import time
 from selenium.webdriver.common.keys import Keys
 # import unittest
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
 	def setUp(self):
 		print ("setUp is called");
@@ -107,4 +107,3 @@ class NewVisitorTest(LiveServerTestCase):
 				512,
 				delta=5
 			)
-		
