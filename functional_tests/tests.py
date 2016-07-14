@@ -2,10 +2,19 @@ from selenium import webdriver
 import sys
 import time
 from selenium.webdriver.common.keys import Keys
+from pyvirtualdisplay import Display
+
 # import unittest
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
+<<<<<<< HEAD
 DRIVER_ADD = "/home/elspeth/sites/chromedriver"
+=======
+display = Display(visible=0, size=(800, 600))
+display.start()
+
+DRIVER_ADD = "/home/suraj/Downloads/chromedriver"
+>>>>>>> 7940850e24a489d9ad5dbe662f689e0bd3aa6347
 class NewVisitorTest(StaticLiveServerTestCase):
 
 	@classmethod
