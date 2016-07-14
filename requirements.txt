@@ -1,2 +1,4 @@
 Django==1.7
+EasyProcess==0.2.2
+PyVirtualDisplay==0.2
 selenium==2.53.6
