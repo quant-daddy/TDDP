@@ -7,11 +7,6 @@ from pyvirtualdisplay import Display
 # import unittest
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
-display = Display(visible=0, size=(800, 600))
-display.start()
-
-DRIVER_ADD = "/home/suraj/Downloads/chromedriver"
-
 class NewVisitorTest(StaticLiveServerTestCase):
 
 	@classmethod
@@ -31,7 +26,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
 	def setUp(self):
 		print ("setUp is called");
-		self.browser = webdriver.Chrome(DRIVER_ADD)
+		self.browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])
 		self.browser.implicitly_wait(3)
 
 	def tearDown(self):
@@ -84,7 +79,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		## of Julia's is coming along through cookies etc. 
 
 		self.browser.quit()
-		self.browser = webdriver.Chrome(DRIVER_ADD)
+		self.browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])
 
 		# Francis visits the home page. There is no sign of Julia's list
 		self.browser.get(self.server_url)
