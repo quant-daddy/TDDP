@@ -19,12 +19,23 @@ REPO_URL = 'https://github.com/skk2142/TDDP.git'
 def deploy():
 	site_folder = '/home/%s/sites/%s' % (env.user, env.host)
 	source_folder = site_folder + '/source'
+	_install_packages()
  	_create_directory_structure_if_necessary(site_folder) #1
  	_get_latest_source(source_folder) #2
  	_update_settings(source_folder, env.host)
  	_update_virtualenv(source_folder)
  	_update_static_files(source_folder)
  	_update_database(source_folder)
+ 	_update_nginx_conf_and_upstart_script(source_folder)
+ 	_update_etc_hosts_for_live_functional_test()
+ 	_start_server_and_gunicorn()
+
+
+def _install_packages():
+	run('sudo apt-get update')
+	run('sudo apt-get install -y nginx git python3 python3-pip')
+	run('sudo pip3 install virtualenv')
+
 
 def _create_directory_structure_if_necessary(site_folder):
 	for subfolder in ('database', 'static', 'virtualenv', 'source'):
@@ -62,18 +73,15 @@ def _update_static_files(source_folder):
 def _update_database(source_folder):
 	run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (source_folder,))
 
+def _update_nginx_conf_and_upstart_script(source_folder):
+	run('cd %s && sed "s/SITENAME/%s/g" deploy_tools/nginx.template.conf | sudo tee /etc/nginx/sites-available/%s' % (source_folder, env.host, env.host))
+	run('cd %s && sudo ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s' % (source_folder, env.host, env.host,))
+	gunicorn_upstart_script_name = 'gunicorn-'+env.host+'.conf'
+	run('cd %s && sed "s/SITENAME/%s/g" deploy_tools/gunicorn-upstart.template.conf | sed "s/USERID/%s/g" deploy_tools/gunicorn-upstart.template.conf | sudo tee /etc/init/%s' % (source_folder, env.host, env.user, gunicorn_upstart_script_name,))
 
+def _update_etc_hosts_for_live_functional_test():
+	pass
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+def _start_server_and_gunicorn():
+	run('sudo service nginx restart')
+	run('sudo start gunicorn-%s' % (env.host,))
