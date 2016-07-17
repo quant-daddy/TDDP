@@ -83,5 +83,5 @@ def _update_etc_hosts_for_live_functional_test():
 	pass
 
 def _start_server_and_gunicorn():
-	run('sudo service nginx restart')
+	run('sudo service nginx reload')
 	run('sudo start gunicorn-%s' % (env.host,))
