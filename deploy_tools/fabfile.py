@@ -74,10 +74,10 @@ def _update_database(source_folder):
 	run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (source_folder,))
 
 def _update_nginx_conf_and_upstart_script(source_folder):
-	run('cd %s && sed "s/SITENAME/%s/g" deploy_tools/nginx.template.conf | sudo tee /etc/nginx/sites-available/%s' % (source_folder, env.host, env.host))
+	run('cd %s && sed "s/SITENAME/%s/g;s/USERID/%s/g" deploy_tools/nginx.template.conf | sudo tee /etc/nginx/sites-available/%s' % (source_folder, env.host, env.user, env.host))
 	run('cd %s && sudo ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s' % (source_folder, env.host, env.host,))
 	gunicorn_upstart_script_name = 'gunicorn-'+env.host+'.conf'
-	run('cd %s && sed "s/SITENAME/%s/g" deploy_tools/gunicorn-upstart.template.conf | sed "s/USERID/%s/g" deploy_tools/gunicorn-upstart.template.conf | sudo tee /etc/init/%s' % (source_folder, env.host, env.user, gunicorn_upstart_script_name,))
+	run('cd %s && sed "s/SITENAME/%s/g;s/USERID/%s/g" deploy_tools/gunicorn-upstart.template.conf | sudo tee /etc/init/%s' % (source_folder, env.host, env.user, gunicorn_upstart_script_name,))
 
 def _update_etc_hosts_for_live_functional_test():
 	pass
