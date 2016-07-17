@@ -7,14 +7,15 @@
 * virtualenv
 eg, on Ubuntu:
 
-	sudo apt-get install nginx git python3 python3-pip
+	sudo apt-get update
+	sudo apt-get install -y nginx git python3 python3-pip
 	sudo pip3 install virtualenv
 
 
 ## nginx Virtual Host config
 
 * see nginx.template.conf
-* replace SITENAMR with, eg, www.pleatly.com
+* replace SITENAME with, eg, www.pleatly.com
 
 ## Folder structure:
 Assume we have an user account at /home/username
