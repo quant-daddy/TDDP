@@ -1,5 +1,5 @@
 from selenium import webdriver
-from .base import FunctionalTest
+from .base import FunctionalTest, create_browser
 import sys
 import time
 from selenium.webdriver.common.keys import Keys
@@ -52,7 +52,7 @@ class NewVisitorTest(FunctionalTest):
 		## of Julia's is coming along through cookies etc. 
 
 		self.browser.quit()
-		self.browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])
+		self.browser = create_browser()
 
 		# Francis visits the home page. There is no sign of Julia's list
 		self.browser.get(self.server_url)

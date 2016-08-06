@@ -27,7 +27,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
 	def setUp(self):
 		print ("setUp is called");
-		self.browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])
+		self.browser = create_browser()
 		self.browser.implicitly_wait(3)
 
 	def tearDown(self):
@@ -38,3 +38,6 @@ class FunctionalTest(StaticLiveServerTestCase):
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
 		self.assertIn(row_text, [row.text for row in rows])
+
+def create_browser():
+	return webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])#Chrome('/home/suraj/Downloads/chromedriver')#
