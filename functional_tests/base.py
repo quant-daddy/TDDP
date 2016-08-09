@@ -43,5 +43,5 @@ class FunctionalTest(StaticLiveServerTestCase):
 		return self.browser.find_element_by_id('id_text')
 
 def create_browser():
-	return webdriver.Chrome('/home/suraj/Downloads/chromedriver')#PhantomJS(service_args=['--ignore-ssl-errors=true'])#
+	return webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])#Chrome('/home/suraj/Downloads/chromedriver')
 

@@ -20,15 +20,15 @@ def deploy():
 	site_folder = '/home/%s/sites/%s' % (env.user, env.host)
 	source_folder = site_folder + '/source'
 	_install_packages()
- 	_create_directory_structure_if_necessary(site_folder) #1
- 	_get_latest_source(source_folder) #2
- 	_update_settings(source_folder, env.host)
- 	_update_virtualenv(source_folder)
- 	_update_static_files(source_folder)
- 	_update_database(source_folder)
- 	_update_nginx_conf_and_upstart_script(source_folder)
- 	_update_etc_hosts_for_live_functional_test()
- 	_start_server_and_gunicorn()
+	_create_directory_structure_if_necessary(site_folder)
+	_get_latest_source(source_folder)
+	_update_settings(source_folder, env.host)
+	_update_virtualenv(source_folder)
+	_update_static_files(source_folder)
+	_update_database(source_folder)
+	_update_nginx_conf_and_upstart_script(source_folder)
+	_update_etc_hosts_for_live_functional_test()
+	_start_server_and_gunicorn()
 
 
 def _install_packages():
